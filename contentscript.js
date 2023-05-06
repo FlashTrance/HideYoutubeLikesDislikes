@@ -7,7 +7,7 @@ function receivedMessage(message, sender, sendResponse) {
 	
 	// BACKGROUND SCRIPT MESSAGES
 	// Using the (excellent) arrive.js library w/ JQuery to wait for DOM elements prior to hiding
-	$(document).arrive("ytd-toggle-button-renderer.style-scope.ytd-menu-renderer.force-icon-button", function() {
+	$(document).arrive("ytd-segmented-like-dislike-button-renderer", function() {
 		
 		// Hide All
 		if (message.command == "ALL") {
@@ -52,8 +52,7 @@ function receivedMessage(message, sender, sendResponse) {
 function hideAll() {
 	
 	// Hide like/dislike icons, text, and bar
-	$("ytd-toggle-button-renderer.style-scope.ytd-menu-renderer.force-icon-button").hide();      // Icons + Numbers
-	$("ytd-sentiment-bar-renderer").hide();                                                      // Sentiment Bar
+	$("ytd-segmented-like-dislike-button-renderer").hide(); // Hide sentiment bar entirely
 }
 
 
@@ -61,18 +60,15 @@ function hideAll() {
 function hideNums() {
 	
 	// Hide everything except upvote/downvote icons
-	$("ytd-sentiment-bar-renderer").hide();                                                      // Sentiment Bar
-	$("yt-formatted-string.style-scope.ytd-toggle-button-renderer.style-default-active").hide(); // Likes #
-	$("yt-formatted-string.style-scope.ytd-toggle-button-renderer.style-text").hide();           // Dislikes #
-	$("ytd-toggle-button-renderer.style-scope.ytd-menu-renderer.force-icon-button").show();      // Show (Unhide) Icons
+	$("ytd-toggle-button-renderer").find(".cbox").hide()	// Hide likes number
+	$("ytd-segmented-like-dislike-button-renderer").show(); // Unhide sentiment bar (in case hidden)
 }
 
 
 // showAll()
 function showAll() {
 	
-	$("ytd-toggle-button-renderer.style-scope.ytd-menu-renderer.force-icon-button").show();      // Icons
-	$("yt-formatted-string.style-scope.ytd-toggle-button-renderer.style-default-active").show(); // Likes #
-	$("yt-formatted-string.style-scope.ytd-toggle-button-renderer.style-text").show();           // Dislikes #
-	$("ytd-sentiment-bar-renderer").show();                                                      // Sentiment Bar
+	// Unhide all elements
+	$("ytd-segmented-like-dislike-button-renderer").show(); // Unhide sentiment bar
+	$("ytd-toggle-button-renderer").find(".cbox").show()	// Unhide likes number
 }
